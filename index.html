@@ -18,6 +18,19 @@
 
       let painting = false;
 
+      let isTouchDevice = "ontouchstart" in document.documentElement;
+
+      if (isTouchDevice) {
+        canvas.ontouchmove = (e) => {
+          let x = e.touches[0].clientX;
+          let y = e.touches[0].clientY;
+          ctx.beginPath();
+          ctx.arc(x, y, 5, 0, 2 * Math.PI);
+          ctx.stroke();
+          ctx.fill();
+        };
+      }
+
       ctx.fillStyle = "black";
       ctx.strokeStyle = "none";
 
@@ -31,8 +44,6 @@
           ctx.arc(e.clientX, e.clientY, 5, 0, 2 * Math.PI);
           ctx.stroke();
           ctx.fill();
-        } else {
-          console.log("什么也不做");
         }
       };
       canvas.onmouseup = () => {
